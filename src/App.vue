@@ -3,17 +3,22 @@
     <div id="nav">
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> -->
-      <router-link to="/"></router-link>
+      <!-- <router-link to="/"></router-link> -->
+      <Admin />
     </div>
-    <router-view/>
+    <!-- <router-view/> -->
   </div>
 </template>
 
 <script>
 import 'primeflex/primeflex.css';
+// import Dropdown from 'primevue/dropdown';
+import Admin from '@/components/Admin.vue';
 
 export default {
-  
+  components: {
+    Admin
+  }
 }
 </script>
 
