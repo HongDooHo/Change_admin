@@ -2,6 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
+
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 Vue.config.productionTip = false
 
@@ -10,17 +17,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-
-/* import App from './App.vue';
-import { createApp } from 'vue';
-import { reactive } from 'vue';
-import Ripple from 'primevue/ripple';
-import router from './router';
-import Button from 'primevue/button';
-
-
-import 'primevue/resources/themes/saga-blue/theme.css';
-import 'primevue/resources/primevue.min.css';
-import 'primeflex/primeflex.css';
-import 'primeicons/primeicons.css';
- */

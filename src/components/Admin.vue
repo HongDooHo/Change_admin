@@ -2,37 +2,51 @@
   <div class="admin">
     <!-- <Login/> -->
     <h1>CHANGE ADMIN</h1>
-    <div class="p-grid p-fluid">
-      <div class="p-col-12">
-        <div class="card p-shadow-4">
-          <h2>성당 별 입력 코인</h2>
-          <div class="p-formgrid p-col-6">
-            <div class="">
-              <Dropdown class="p-jc-center" v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
-              <div class="p-inputgroup">
-                <InputText placeholder="Price" />
-                <span class="p-inputgroup-addon">원</span>
-              </div>
-              <Button label="Submit"></Button>
-            </div>
+    <div>
+      <b-card title="성당 별 코인 입력">
+        <!-- Coin Form -->
+        <b-form id="coinForm" @submit="onSubmit" @reset="onReset">
+          <!-- Select donation place-->
+          <div class="row justify-content-center">
+            <b-form-group class="col-md-6 col-sm-6" id="selectForm" label-for="selDonation">
+              <b-form-select id="selDonation" v-model="form.place" :options="places" required>
+              </b-form-select>
+            </b-form-group>
           </div>
-        </div>
-      </div>
-      <div class="p-col-12">
-        <div class="card p-shadow-4">
-          <h2>일 별 코인 통계</h2>
-          <Chart type="pie" :data="chartData" />
-        </div>
-      </div>
+          <!-- Input User Id -->
+          <div class="row justify-content-center">
+            <b-form-group class="col-md-6 col-sm-6">
+              <b-input-group id="inputIdForm" prepend="ID">
+                <b-form-input id="inputCoin" v-model="form.userId" required placeholder="기부자의 ID를 입력해주세요.">
+                </b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </div>
+          <!-- Input coin value -->
+          <div class="row justify-content-center">
+            <b-form-group class="col-md-6 col-sm-6">
+              <b-input-group id="inputCoinForm" append="원">
+                <b-form-input id="inputCoin" v-model="form.coinValue" required placeholder="기부 금액을 입력해주세요.">
+                </b-form-input>
+              </b-input-group>
+            </b-form-group>
+          </div>
+          <div class="row justify-content-center">
+            <b-button type="submit" variant="primary" class="mr-2">Submit</b-button>
+            <b-button type="reset" variant="danger">Reset</b-button>
+          </div>
+        </b-form>
+      </b-card>
+      <!-- Chart Card -->
+      <b-card title="코인 통계">
+
+      </b-card>
     </div>
   </div>
 </template>
 
 <script>
-import Dropdown from 'primevue/dropdown';
-import InputText from 'primevue/inputtext';
-import Button from 'primevue/button';
-import Chart from 'primevue/chart';
+// import Chart from 'primevue/chart';
 
 
 // import './assets/layout/layout.scss';
@@ -45,22 +59,19 @@ import 'primeicons/primeicons.css';
 export default {
   name: 'Admin',
   components: {
-    Dropdown,
-    InputText,
-    Button,
-    Chart
+    // Chart
   },
   data() {
     return {
-      dropdownValues: [
-					{name: 'New York', code: 'NY'},
-					{name: 'Rome', code: 'RM'},
-					{name: 'London', code: 'LDN'},
-					{name: 'Istanbul', code: 'IST'},
-					{name: 'Paris', code: 'PRS'}
-			],
-      dropdownValue: null,
-      
+      //Coin Form Data
+      form: {
+        userId: '',
+        coinValue: '',
+        place: null,
+      },
+      places: [{text: '기부처를 선택하세요', value: null}, '은평구', '광진구', '봉일천', '세종시'],
+
+      //Chart Data
       chartData: {
 				labels: ['A','B','C'],
 				datasets: [
@@ -78,7 +89,19 @@ export default {
                         ]
 					}
 				]
-			}
+      },
+    }
+  },
+  methods: {
+    onSubmit(event) {
+      event.preventDfault();
+      alert(JSON.stringify(this.form));
+    },
+    onReset(event) {
+      event.preventDfault();
+      this.form.userId = '';
+      this.form.coinValue = '';
+      this.form.place = null;
     }
   }
 }
